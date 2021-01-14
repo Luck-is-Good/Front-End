@@ -19,43 +19,37 @@ const icons = {
   },
 };
 
-/*
-function TextBox() {
 
-  return (
-      <div>
-        <h1>Your current location</h1>
-        <button>YES</button>
-        <p></p>
-        <button>NO</button>
-      </div>
-  );
+class Menu extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
   
-}
-*/
+  handleClick(event) {
+    //click add -> your current location
+    
+  }
 
-
-
-
-function ButtonBox(){
-  return (
+  render() {
+    return (
       <div >
-        <button> <img src="/home.png" alt="home" width="50px" height="50px"/></button>
-        <button> <img src="/user.png" alt="user" width="50px" height="50px"/></button>
-        <button> <img src="/add.png" alt="add" width="50px" height="50px"/></button>
-        <button> <img src="/settings.png" alt="setting" width="50px" height="50px"/></button>
+        <button className="home" onClick={this.handleClick}> <img src="/home.png" alt="home" width="50px" height="50px"/></button>
+        <button className="user" onClick={this.handleClick}> <img src="/user.png" alt="user" width="50px" height="50px"/></button>
+        <button className="add" onClick={this.handleClick}> <img src="/add.png" alt="add" width="50px" height="50px"/></button>
+        <button className="setting" onClick={this.handleClick} style={{float: 'right'}}> <img src="/settings.png" alt="setting" width="50px" height="50px"/></button>
       </div>
-  );
-  
-
+    );
+  }
 }
 
 
-//username (name -> error)
+
 class InputForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {username: '', age: '', distance: ''};
+    this.state = {username: '', age: null, distance: null};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -90,49 +84,41 @@ class InputForm extends React.Component {
   }
 }
 
-
-/*
-function InputBox() {
-  return (
-    <form >
-      name <input type="text" name="name" />
-      <p></p>
-      age <input type="text" name="age" />
-      <p></p>
-      Maximum allowable distance <input type="text" name="distance" />
-      <p></p>
-      <input type="submit" value="Save" />
-    </form>
-);
-}
-*/
-
-
-
-class AddUser extends React.Component {
+class Location extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleClick = this.handleClick.bind(this);
+    this.state = {showInputForm: false};
+
+    this.handleClickYes = this.handleClickYes.bind(this);
+    this.handleClickNo = this.handleClickNo.bind(this);
   }
   
-  //if yes click -> Input Box
-  handleClick() {
-    <h1>inputbox</h1>
+  handleClickYes(event) {
+    //click yes -> InputForm
+    this.setState({showInputForm: true});
   }
+   
+  
+  handleClickNo(event) {
+    //click No -> error 
+    alert('error : wrong location');
+    
+  }
+  
 
   render() {
     return (
-      <div>
+      <div >
         <h1>Your current location</h1>
-        <button onClick={this.handleClick}>YES</button>
+        <button className="yes" onClick={this.handleClickYes}>YES</button>
+        {this.state.showInputForm ? <InputForm /> : null}
         <p></p>
-        <button>NO</button>
+        <button className="no" onClick={this.handleClickNo}>NO</button>
       </div>
     );
   }
 }
-
 
 
 function MyComponent() {
@@ -161,9 +147,10 @@ class App extends React.Component {
   render() {
     return (
       <div>
-      <ButtonBox />
+      <Menu />
       <MyComponent />
-      <InputForm />
+      <Location />
+      
       
       </div>
     );
