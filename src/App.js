@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { firestore } from './firebase';
 
@@ -19,6 +19,7 @@ const icons = {
   },
 };
 
+/*
 function TextBox() {
 
   return (
@@ -31,6 +32,10 @@ function TextBox() {
   );
   
 }
+*/
+
+
+
 
 function ButtonBox(){
   return (
@@ -45,6 +50,48 @@ function ButtonBox(){
 
 }
 
+
+//username (name -> error)
+class InputForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {username: '', age: '', distance: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+  handleSubmit(event) {
+    alert('User Name:' + this.state.username + ', Age:' + this.state.age + ', Distance:' + this.state.distance);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form>
+        User Name:
+        <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
+        <br></br>
+        Age:
+        <input type="text" name="age" value={this.state.age} onChange={this.handleChange} />
+        <br></br>
+        Maximum allowable distance:<br></br>
+        <input type="text" name="distance" value={this.state.distance} onChange={this.handleChange} />km
+        <br></br>
+        <input type="submit" value="Save" onClick={this.handleSubmit}/>
+      </form>
+    );
+  }
+}
+
+
+/*
 function InputBox() {
   return (
     <form >
@@ -54,9 +101,36 @@ function InputBox() {
       <p></p>
       Maximum allowable distance <input type="text" name="distance" />
       <p></p>
-      <button>save</button>
+      <input type="submit" value="Save" />
     </form>
 );
+}
+*/
+
+
+
+class AddUser extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+  
+  //if yes click -> Input Box
+  handleClick() {
+    <h1>inputbox</h1>
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Your current location</h1>
+        <button onClick={this.handleClick}>YES</button>
+        <p></p>
+        <button>NO</button>
+      </div>
+    );
+  }
 }
 
 
@@ -89,8 +163,8 @@ class App extends React.Component {
       <div>
       <ButtonBox />
       <MyComponent />
-      <TextBox />
-      <InputBox />
+      <InputForm />
+      
       </div>
     );
   }
