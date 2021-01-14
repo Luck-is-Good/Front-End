@@ -23,13 +23,15 @@ const icons = {
 class Menu extends React.Component {
   constructor(props) {
     super(props);
+    
+    this.state = {showLocation: false};
 
     this.handleClick = this.handleClick.bind(this);
   }
   
   handleClick(event) {
     //click add -> your current location
-    
+    this.setState({showLocation: true});
   }
 
   render() {
@@ -38,6 +40,7 @@ class Menu extends React.Component {
         <button className="home" onClick={this.handleClick}> <img src="/home.png" alt="home" width="50px" height="50px"/></button>
         <button className="user" onClick={this.handleClick}> <img src="/user.png" alt="user" width="50px" height="50px"/></button>
         <button className="add" onClick={this.handleClick}> <img src="/add.png" alt="add" width="50px" height="50px"/></button>
+        {this.state.showLocation ? <Location /> : null}
         <button className="setting" onClick={this.handleClick} style={{float: 'right'}}> <img src="/settings.png" alt="setting" width="50px" height="50px"/></button>
       </div>
     );
@@ -149,7 +152,7 @@ class App extends React.Component {
       <div>
       <Menu />
       <MyComponent />
-      <Location />
+      
       
       
       </div>
